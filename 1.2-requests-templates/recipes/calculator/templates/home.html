@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2 align="left">
+    У вас дома остался только хлеб? <br>
+    Тогда вы точно сможете приготовить эти блюда!
+</h2>
+
+{% for d in dishes %}
+<li>
+    <a href = '/{{d}}'>
+        <font size="+2"> {{ d }} </font>
+    </a>
+</li>
+
+{% endfor %}
+</body>
+</html>

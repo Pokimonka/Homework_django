@@ -14,8 +14,13 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
+
 from django.urls import path
+
+from calculator.views import get_recipe, home
 
 urlpatterns = [
     # здесь зарегистрируйте вашу view-функцию
+    path('<str:dish>/', get_recipe, name='get_recipe'),
+    path('', home, name='home')
 ]
