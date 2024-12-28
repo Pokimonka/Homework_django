@@ -85,6 +85,31 @@ def test_create_course(client):
     assert Course.objects.count() == count + 1
     assert Course.objects.values()[0]['name'] == resp['name']
 
+
+@pytest.mark.django_db
+def test_update_course(client, course_factory):
+    course = course_factory(_quantity=1)
+    data = {
+        'name': 'Math updated',
+        'students': []
+    }
+    response = client.put(f'/courses/{course[0].id}/', data=data)
+
+    assert response.status_code == 200
+
+    course[0].refresh_from_db()
+    assert course[0].name == data['name']
+
+
+@pytest.mark.django_db
+def test_delete_course(client, course_factory):
+    course = course_factory(_quantity=1)
+
+    response = client.delete(f'/courses/{course[0].id}/')
+
+    assert response.status_code == 204
+    assert Course.objects.count() == 0
+
 @pytest.mark.django_db
 def test_create_course_with_students(client, course_factory, student_factory):
     course = course_factory(_quantity=1)
